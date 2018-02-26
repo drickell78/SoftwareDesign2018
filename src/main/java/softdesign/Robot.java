@@ -42,7 +42,7 @@ public class Robot extends Agent {
     	}
     	
     	// Perform the following actions every 5 virtual seconds
-    	if(this.getCounter() % 5 == 0) {
+    	if(this.getCounter() % 2 == 0) {
 	    	if(this.currentMode == "goStraight") {
 	    		// the robot's speed is always 0.5 m/s
 	            this.setTranslationalVelocity(0.5);
@@ -52,12 +52,12 @@ public class Robot extends Agent {
 	        	// don't move
 	        	this.setTranslationalVelocity(0);
 	        	// rotate clockwise
-	        	setRotationalVelocity(Math.PI / 2);
-	        } else if(this.currentMode == "avoidFrontLeftObstacle") {
+	        	setRotationalVelocity(0 - (Math.PI / 2));
+	        } else if(this.currentMode == "avoidFrontRightObstacle") {
 	        	// don't move
 	        	this.setTranslationalVelocity(0);
 	        	// rotate counterclockwise
-	        	setRotationalVelocity(0 - (Math.PI / 2));
+	        	setRotationalVelocity(Math.PI / 2);
 	        } else if(this.currentMode == "doRandomTurn") {
 	        	// Rotate with a random velocity in range [-PI/2, PI/2]
 	        	setRotationalVelocity((0.5 - Math.random()) * Math.PI);
@@ -70,7 +70,7 @@ public class Robot extends Agent {
 					if (sonars.getLeftQuadrantHits() > 0) { // Check if there is obstacle to the left so it can safely rotate
 						this.currentMode = "avoidFrontLeftObstacle";
 					} else { // Rotate left because there is no obstacle there.
-						this.currentMode = "avoidFrontLeftObstacle";
+						this.currentMode = "avoidFrontRightObstacle";
 					}
 				} else  {
 					this.currentMode = "goStraight";
